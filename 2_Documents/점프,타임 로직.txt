@@ -1,0 +1,199 @@
+	
+// 점프하고 잠깐 멈춰있게 하는 조건문 -> Movecharacter에서 사용
+	else if (isHovering == true)
+	{
+
+		if (UpdateTick > 1500)
+		{
+			UpdateTick = 0;
+			isJumping = false;
+			isDown = true;
+			isHovering = false;
+		}
+
+	}
+
+
+//캐릭터 움직이는 함수
+void MoveCharacter(int elapedTime)
+{
+	static int UpdateTick = 0;
+	UpdateTick += elapedTime;
+
+	/*if (UpdateTick >= 2000)
+	{
+		UpdateTick = 0;
+
+
+	}*/
+	////증감 체크 변수
+	//int CatMove_Count = 0;
+	////슬라이드 변환 체크 변수
+	//int CatSlide_Count = 0;
+
+	if (isJumping == true)
+	{
+		if (CatMove_Count >= 13)
+		{
+			isJumping = false;
+			isDown = true;
+		}
+		else if (!isDown)
+		{
+			if (UpdateTick >= 1 / 3000)
+			{
+				UpdateTick = 0;
+				CatMove_Count++;
+				catCurPos.y -= 1;
+			}
+		}
+		else if (isDown)
+			isJumping = false;
+	}
+	if (isDown == true)
+	{
+		if (CatMove_Count <= 0)
+		{
+			isJumping = false;
+			isDown = false;
+			isStand = true;
+		}
+		else if (!isJumping)
+		{
+			CatMove_Count--;
+			catCurPos.y += 1;
+		}
+	}
+
+
+	if (isSlide == true)
+	{
+		if (CatSlide_Count >= 6)
+		{
+			isSlide = false;
+			isStand = true;
+		}
+		else
+		{
+			if (UpdateTick >= 1 / 3000)
+			{
+				UpdateTick = 0;
+				CatSlide_Count++;
+			}
+
+		}
+	}
+	else if (isStand == true)
+	{
+		if (CatSlide_Count <= 0)
+		{
+			isSlide = false;
+			isStand = true;
+		}
+		else
+		{
+			CatSlide_Count--;
+		}
+	}
+
+}
+
+
+// 시간을 체크해주는 함수
+void DrawTimeCount(double start_Time)
+{
+	int current_time = clock() / 1000;
+
+	int second = current_time % 60;
+	int min = current_time / 60;
+
+	char timeStr[100];
+	sprintf(timeStr, "%02d : %02d", min, second % 60);
+
+	WriteBuffer(50, 0, timeStr);
+
+}
+
+//캐릭터 움직임
+void MoveCharacter(int elapedTime)
+{
+	static int UpdateTick = 0;
+	UpdateTick += elapedTime;
+
+	/*if (UpdateTick >= 2000)
+	{
+		UpdateTick = 0;
+
+
+	}*/
+	////증감 체크 변수
+	//int CatMove_Count = 0;
+	////슬라이드 변환 체크 변수
+	//int CatSlide_Count = 0;
+
+	if (isJumping == true)
+	{
+		if (CatMove_Count >= 13)
+		{
+			isJumping = false;
+			isDown = true;
+		}
+		else if (!isDown)
+		{
+			if (UpdateTick >= 1 / 3000)
+			{
+				UpdateTick = 0;
+				CatMove_Count++;
+				catCurPos.y -= 1;
+			}
+		}
+		else if (isDown)
+			isJumping = false;
+	}
+	if (isDown == true)
+	{
+		if (CatMove_Count <= 0)
+		{
+			isJumping = false;
+			isDown = false;
+			isStand = true;
+		}
+		else if (!isJumping)
+		{
+			CatMove_Count--;
+			catCurPos.y += 1;
+		}
+	}
+
+
+	if (isSlide == true)
+	{
+		if (CatSlide_Count >= 6)
+		{
+			isSlide = false;
+			isStand = true;
+		}
+		else
+		{
+			if (UpdateTick >= 1 / 3000)
+			{
+				UpdateTick = 0;
+				CatSlide_Count++;
+			}
+
+		}
+	}
+	else if (isStand == true)
+	{
+		if (CatSlide_Count <= 0)
+		{
+			isSlide = false;
+			isStand = true;
+		}
+		else
+		{
+			CatSlide_Count--;
+		}
+	}
+
+}
